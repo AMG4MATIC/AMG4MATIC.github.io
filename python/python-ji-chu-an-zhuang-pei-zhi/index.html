@@ -420,7 +420,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    154
+                    155
                 </div>
                 
 
@@ -456,11 +456,13 @@
 <h4 id="macos-bigsur安装"><a href="#macos-bigsur安装" class="headerlink" title="macos bigsur安装"></a>macos bigsur安装</h4><pre class=" language-bash"><code class="language-bash">CFLAGS<span class="token operator">=</span><span class="token string">"-I<span class="token variable"><span class="token variable">$(</span>brew --prefix openssl<span class="token variable">)</span></span>/include -I<span class="token variable"><span class="token variable">$(</span>brew --prefix <span class="token function">bzip2</span><span class="token variable">)</span></span>/include -I<span class="token variable"><span class="token variable">$(</span>brew --prefix readline<span class="token variable">)</span></span>/include -I<span class="token variable"><span class="token variable">$(</span>xcrun --show-sdk-path<span class="token variable">)</span></span>/usr/include"</span> LDFLAGS<span class="token operator">=</span><span class="token string">"-L<span class="token variable"><span class="token variable">$(</span>brew --prefix openssl<span class="token variable">)</span></span>/lib -L<span class="token variable"><span class="token variable">$(</span>brew --prefix readline<span class="token variable">)</span></span>/lib -L<span class="token variable"><span class="token variable">$(</span>brew --prefix zlib<span class="token variable">)</span></span>/lib -L<span class="token variable"><span class="token variable">$(</span>brew --prefix <span class="token function">bzip2</span><span class="token variable">)</span></span>/lib"</span> pyenv <span class="token function">install</span> --patch 3.8.6 <span class="token operator">&lt;</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>curl -sSL https://github.com/python/cpython/commit/8ea6353.patch\?full_index\<span class="token operator">=</span>1<span class="token punctuation">)</span>
 </code></pre>
 <h1 id="Python库"><a href="#Python库" class="headerlink" title="Python库"></a>Python库</h1><h2 id="安装gmpy2"><a href="#安装gmpy2" class="headerlink" title="安装gmpy2"></a>安装gmpy2</h2><ul>
-<li>Windows<br>wheel 安装</li>
-<li>macOS<pre><code>brew install gmp
-brew install mpfr
-brew install libmpc
-pip install gmpy2
+<li><p>Windows<br>wheel 安装</p>
+</li>
+<li><p>macOS</p>
+<pre class=" language-bash"><code class="language-bash">brew <span class="token function">install</span> gmp
+brew <span class="token function">install</span> mpfr
+brew <span class="token function">install</span> libmpc
+pip <span class="token function">install</span> gmpy2
 </code></pre>
 </li>
 </ul>
@@ -790,12 +792,12 @@ pip install gmpy2
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
-                    </a>
-                    
                     <a href="/tags/macOS/">
                         <span class="chip bg-color">macOS</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
                     </a>
                     
                 </div>
