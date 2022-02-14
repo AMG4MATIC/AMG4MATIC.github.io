@@ -381,12 +381,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/macOS/">
-                                <span class="chip bg-color">macOS</span>
-                            </a>
-                        
                             <a href="/tags/Python/">
                                 <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                            <a href="/tags/macOS/">
+                                <span class="chip bg-color">macOS</span>
                             </a>
                         
                     </div>
@@ -527,20 +527,30 @@ pip <span class="token function">install</span> --upgrade keras<span class="toke
 </ul>
 <h1 id="pip虚拟化"><a href="#pip虚拟化" class="headerlink" title="pip虚拟化"></a>pip虚拟化</h1><h2 id="pipenv"><a href="#pipenv" class="headerlink" title="pipenv"></a>pipenv</h2><p>在使用pipenv之前，必须彻底的忘记pip这个东西</p>
 <ol>
-<li>安装 <code>pip3 install pipenv</code>    (pip3安装的会指向Python3)</li>
-<li>新建一个项目文件：letgo</li>
-<li>进入文件夹：cd letgo</li>
-<li>指定虚拟环境使用哪个版本的python<pre><code>`pipenv --three` 会使用当前系统的Python3创建环境
+<li><p>安装 <code>pip3 install pipenv</code>    (pip3安装的会指向Python3)</p>
+</li>
+<li><p>新建一个项目文件：letgo</p>
+</li>
+<li><p>进入文件夹：cd letgo</p>
+</li>
+<li><p>指定虚拟环境使用哪个版本的python</p>
+<pre><code>`pipenv --three` 会使用当前系统的Python3创建环境
 </code></pre>
 </li>
-<li>换成国内镜像，被墙网速慢<br>   编辑文件letgo/Pipfile<br>   将 url = “<a target="_blank" rel="noopener" href="https://pypi.org/simple&quot;">https://pypi.org/simple&quot;</a> 替换成国内镜像<br>   url = “<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple/&quot;">https://pypi.tuna.tsinghua.edu.cn/simple/&quot;</a></li>
-<li>激活虚拟环境<pre><code>pipenv shell (进入虚拟环境)
+<li><p>换成国内镜像，被墙网速慢</p>
+<p>   编辑文件letgo/Pipfile<br>   将 url = “<a target="_blank" rel="noopener" href="https://pypi.org/simple&quot;">https://pypi.org/simple&quot;</a> 替换成国内镜像<br>   url = “<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple/&quot;">https://pypi.tuna.tsinghua.edu.cn/simple/&quot;</a></p>
+</li>
+<li><p>激活虚拟环境</p>
+<pre><code>pipenv shell (进入虚拟环境)
 (新建的虚拟环境存放在/root/.local/share/virtualenvs/下，想要删除这个环境，直接删除这个文件夹)
 </code></pre>
 </li>
-<li>pipenv install django==1.11 安装固定版本模块，并加入到Pipfile</li>
-<li>当项目放到阿里云上时，直接运行：pipenv install 就能自动生成一份和本地环境，一模一样的环境</li>
-<li>常用命令：</li>
+<li><p>pipenv install django==1.11 安装固定版本模块，并加入到Pipfile</p>
+</li>
+<li><p>当项目放到阿里云上时，直接运行：pipenv install 就能自动生成一份和本地环境，一模一样的环境</p>
+</li>
+<li><p> 常用命令：</p>
+</li>
 </ol>
 <pre class=" language-bash"><code class="language-bash">   pipenv graph                  查看目前安装的库及其依赖
    pipenv uninstall --all        卸载全部包并从Pipfile中移除
@@ -615,12 +625,12 @@ pip <span class="token function">install</span> --upgrade keras<span class="toke
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/macOS/">
-                                    <span class="chip bg-color">macOS</span>
-                                </a>
-                            
                                 <a href="/tags/Python/">
                                     <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                                <a href="/tags/macOS/">
+                                    <span class="chip bg-color">macOS</span>
                                 </a>
                             
                         </div>
