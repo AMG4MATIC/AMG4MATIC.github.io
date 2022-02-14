@@ -465,12 +465,14 @@
   <span class="token punctuation">[</span>global<span class="token punctuation">]</span> index-url <span class="token operator">=</span> https://pypi.tuna.tsinghua.edu.cn/simple
 </code></pre>
 <h2 id="Windows-1"><a href="#Windows-1" class="headerlink" title="Windows"></a>Windows</h2><ul>
-<li>在user目录中创建一个pip目录，如：<code>C:\Users\xx\pip</code>，新建文件pip.ini,内容如下：<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>global<span class="token punctuation">]</span>
-index-url<span class="token operator">=</span>https://pypi.tuna.tsinghua.edu.cn/simple
-<span class="token punctuation">[</span>install<span class="token punctuation">]</span>
-trusted-host<span class="token operator">=</span>pypi.tuna.tsinghua.edu.cn
+<li>在user目录中创建一个pip目录，如：<code>C:\Users\xx\pip</code>，新建文件pip.ini,内容如下：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">  <span class="token punctuation">[</span>global<span class="token punctuation">]</span>
+  index-url<span class="token operator">=</span>https://pypi.tuna.tsinghua.edu.cn/simple
+  <span class="token punctuation">[</span>install<span class="token punctuation">]</span>
+  trusted-host<span class="token operator">=</span>pypi.tuna.tsinghua.edu.cn
 </code></pre>
-</li>
+<ul>
 <li>其他国内源</li>
 </ul>
 <pre class=" language-bash"><code class="language-bash">  http://pypi.douban.com/ 豆瓣
@@ -484,9 +486,12 @@ trusted-host<span class="token operator">=</span>pypi.tuna.tsinghua.edu.cn
 <li>Linux/macOS下则可以通过软链接或者shell别名的方式</li>
 </ul>
 <h1 id="pip使用方法"><a href="#pip使用方法" class="headerlink" title="pip使用方法"></a>pip使用方法</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">pip镜像仓库</a></li>
-<li>使用方法：<br><code>pip &lt;command&gt; [options]</code></li>
-<li>相关命令如下：<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#安装包  </span>
+<li><p><a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">pip镜像仓库</a></p>
+</li>
+<li><p>使用方法：<br><code>pip &lt;command&gt; [options]</code></p>
+</li>
+<li><p>相关命令如下：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#安装包  </span>
 pip <span class="token function">install</span>  <span class="token punctuation">[</span>package<span class="token punctuation">]</span>        
 <span class="token comment" spellcheck="true">#卸载包 </span>
 pip uninstall <span class="token punctuation">[</span>package<span class="token punctuation">]</span>   
@@ -502,8 +507,10 @@ pip check
 pip <span class="token function">hash</span>                         
 </code></pre>
 </li>
-<li>如需查找options，加上–help即可</li>
-<li>常用命令如下：<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#在线安装包</span>
+<li><p>如需查找options，加上–help即可</p>
+</li>
+<li><p>常用命令如下：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#在线安装包</span>
 pip <span class="token function">install</span> package_name     
 <span class="token comment" spellcheck="true">#本地安装 </span>
 pip <span class="token function">install</span> -t %Python_home%/site-packages/         package_name 
