@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Linux命令行输出</title>
+      <link href="linux/linux-ming-ling-xing-shu-chu/"/>
+      <url>linux/linux-ming-ling-xing-shu-chu/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>我们在一些Linux下的shell脚本中经常会碰到<code>nohup command &gt;/dev/null 2&gt;&amp;1 &amp;</code>这样形式的命令&gt;我们在一些Linux下的shell脚本中经常会碰到<code>nohup command &gt;/dev/null 2&gt;&amp;1 &amp;</code>这样形式的命令。<br>那么这条命令应该怎么理解呢？首先我们对这条命令进行拆分：</p></blockquote><h2 id="nohup和-amp-后台运行"><a href="#nohup和-amp-后台运行" class="headerlink" title="nohup和&amp;后台运行"></a>nohup和&amp;后台运行</h2><h3 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h3><ol><li>用途：no hang up（不挂起），用于在系统后台不挂断地运行命令，<code>退出终端</code>不会影响程序的运行。</li><li>语法：nohup command [arg] [&amp;]</li><li>在默认情况下（非重定向时），会输出一个名叫<code>nohup.out</code>的文件到当前目录下，如果当前目录的<code>nohup.out</code>文件不可写，输出重定向到<code>$HOME/nohup.out</code>文件中。</li></ol><h3 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h3><ol><li>用途：使程序在后台运行，退出终端退出后命令仍旧执行。</li></ol><blockquote><p>综合起来看就是<br>使用&amp;后台运行程序：<br>结果会输出到终端<br>使用Ctrl + C发送SIGINT信号，程序免疫<br>关闭session发送SIGHUP信号，程序关闭</p><hr><p>使用nohup运行程序：<br>结果默认会输出到nohup.out<br>使用Ctrl + C发送SIGINT信号，程序关闭<br>关闭session发送SIGHUP信号，程序免疫</p><hr><p>平日线上经常使用nohup和&amp;配合来启动程序&gt; nohup ./test &amp;：<br>同时免疫SIGINT和SIGHUP信号</p></blockquote><h2 id="终止后台程序"><a href="#终止后台程序" class="headerlink" title="终止后台程序"></a>终止后台程序</h2><ol><li>终端未关闭<br><code>jobs -l</code>该命令可以带进程号显示作业列表，之后<code>kill pid</code>即可</li><li>终端已关闭<br>在终端关闭后，<code>jobs</code>就无法显示作业列表了，这个时候就只能通过<code>ps -ef</code>在进程列表里查找</li></ol><h2 id="几个基本符号及其含义"><a href="#几个基本符号及其含义" class="headerlink" title="几个基本符号及其含义"></a>几个基本符号及其含义</h2><ul><li>/dev/null 表示空设备文件，也就是输出到一个“黑洞”里，最终不会获取输出</li><li>0 表示stdin标准输入</li><li>1 表示stout标准输出</li><li>2 表示sterr标准错误</li><li>&amp; 表示等同于的意思，2&gt;&amp;1，表示2的输出重定向等同于1</li></ul><blockquote><p>从<code>command &gt;/dev/null</code>来看，这其实一个缩写的命令，对于一个重定向的命令，肯定是<code>command &gt;a</code>这种形式，它默认等于<code>command 1 &gt;a</code>，即将标准输出结果重定向到文件a中，</p></blockquote><p>通过上面command &gt; /dev/null等价于command 1 &gt; /dev/null,那么对于2&gt;&amp;1也就好理解了，2就是标准错误，1是标准输出，那么这条命令不就是相当于把标准错误重定向到标准输出么。但是是&amp;1而不是1，这里&amp;是什么？这里&amp;相当于等效于标准输出。</p><ul><li>2&gt;&amp;1，意思是错误输出等同于标准输出。所以使得./test.sh &gt;test.log，可以把标准输出和错误输出全部导入日志test.log里。</li><li>注意：2&gt;&amp;1，中间不能有空格。</li><li>注意：2&gt;&amp;1，必须写在最后，否则会失去原有意义</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python基础安装配置</title>
       <link href="python/python-ji-chu-an-zhuang-pei-zhi/"/>
       <url>python/python-ji-chu-an-zhuang-pei-zhi/</url>
@@ -45,9 +70,9 @@
       
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> macOS </tag>
+            
+            <tag> Python </tag>
             
         </tags>
       
@@ -189,33 +214,6 @@
     
     
     <entry>
-      <title>哈希(hash)计算</title>
-      <link href="computertips/ha-xi-hash-ji-suan/"/>
-      <url>computertips/ha-xi-hash-ji-suan/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>hash计算是我们经常需要用到的命令，这里每个系统做个记录</p></blockquote><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><pre class=" language-bash"><code class="language-bash">certutil -hashfile filename MD5certutil -hashfile filename SHA1certutil -hashfile filename SHA256</code></pre><p>Windows还以通过安装<code>Hashtab</code>之后直接通过右键查看属性获取hash值。</p><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><pre class=" language-bash"><code class="language-bash">$ md5sum filename$ sha1sum filename$ sha256sum filename</code></pre><h2 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h2><h3 id="系统自带："><a href="#系统自带：" class="headerlink" title="系统自带："></a>系统自带：</h3><pre class=" language-bash"><code class="language-bash">md5 file_nameshasum -a 1/256 file_name</code></pre><h3 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h3><pre class=" language-bash"><code class="language-bash">openssl md5 filenameopenssl sha1 filenameopenssl sha256 filename</code></pre><h2 id="查看一个字符串的hash值"><a href="#查看一个字符串的hash值" class="headerlink" title="查看一个字符串的hash值"></a>查看一个字符串的hash值</h2><pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> -n <span class="token string">'string'</span> <span class="token operator">|</span> <span class="token function">hash</span></code></pre><p>echo -n : 不打印换行符。(注意: echo -n 后面的-n参数必须加上, 这样算出的字符串的md5值才正确)</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> ComputerTips </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ComputerTips </tag>
-            
-            <tag> Hash </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>LinuxVPS安全配置</title>
       <link href="linux/linuxvps-an-quan-pei-zhi/"/>
       <url>linux/linuxvps-an-quan-pei-zhi/</url>
@@ -260,6 +258,33 @@
         <tags>
             
             <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>哈希(hash)计算</title>
+      <link href="computertips/ha-xi-hash-ji-suan/"/>
+      <url>computertips/ha-xi-hash-ji-suan/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>hash计算是我们经常需要用到的命令，这里每个系统做个记录</p></blockquote><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><pre class=" language-bash"><code class="language-bash">certutil -hashfile filename MD5certutil -hashfile filename SHA1certutil -hashfile filename SHA256</code></pre><p>Windows还以通过安装<code>Hashtab</code>之后直接通过右键查看属性获取hash值。</p><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><pre class=" language-bash"><code class="language-bash">$ md5sum filename$ sha1sum filename$ sha256sum filename</code></pre><h2 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h2><h3 id="系统自带："><a href="#系统自带：" class="headerlink" title="系统自带："></a>系统自带：</h3><pre class=" language-bash"><code class="language-bash">md5 file_nameshasum -a 1/256 file_name</code></pre><h3 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h3><pre class=" language-bash"><code class="language-bash">openssl md5 filenameopenssl sha1 filenameopenssl sha256 filename</code></pre><h2 id="查看一个字符串的hash值"><a href="#查看一个字符串的hash值" class="headerlink" title="查看一个字符串的hash值"></a>查看一个字符串的hash值</h2><pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> -n <span class="token string">'string'</span> <span class="token operator">|</span> <span class="token function">hash</span></code></pre><p>echo -n : 不打印换行符。(注意: echo -n 后面的-n参数必须加上, 这样算出的字符串的md5值才正确)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ComputerTips </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ComputerTips </tag>
+            
+            <tag> Hash </tag>
             
         </tags>
       
@@ -446,9 +471,9 @@
       
         <tags>
             
-            <tag> Pycharm </tag>
-            
             <tag> Python </tag>
+            
+            <tag> Pycharm </tag>
             
         </tags>
       
@@ -458,8 +483,8 @@
     
     <entry>
       <title>macOS下多版本python管理</title>
-      <link href="python/macos-duo-ban-ben-python-guan-li-pyenv/"/>
-      <url>python/macos-duo-ban-ben-python-guan-li-pyenv/</url>
+      <link href="python/pyenv/"/>
+      <url>python/pyenv/</url>
       
         <content type="html"><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><blockquote><p>macOS里面是自带python的，但是版本都相对老一点，而且直接对系统本身的python进行操作还是带有一定危险性的。pyenv 是一个强大 Python 包管理工具，可以灵活地切换各种 Python 版本，macOS 下强烈建议大家安装体验一下。</p></blockquote><p>最新系统的macOS的话都是自带python2和python3的，对于python3的话可以通过brew进行安装，然后通过别名的方式去指定安装的版本，从而避免使用系统自带的python3</p><h2 id="Pyenv"><a href="#Pyenv" class="headerlink" title="Pyenv"></a>Pyenv</h2><h3 id="安装pyenv"><a href="#安装pyenv" class="headerlink" title="安装pyenv"></a>安装pyenv</h3><pre class=" language-bash"><code class="language-bash">brew <span class="token function">install</span> pyenv</code></pre><ul><li>zsh/bash</li></ul><pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">'export PYENV_ROOT="<span class="token variable">$HOME</span>/.pyenv"'</span> <span class="token operator">>></span> ~/.profile<span class="token keyword">echo</span> <span class="token string">'export PATH="<span class="token variable">$PYENV_ROOT</span>/bin:<span class="token variable">$PATH</span>"'</span> <span class="token operator">>></span> ~/.profile<span class="token keyword">echo</span> <span class="token string">'eval "<span class="token variable"><span class="token variable">$(</span>pyenv init --path<span class="token variable">)</span></span>"'</span> <span class="token operator">>></span> ~/.profile</code></pre><h3 id="版本安装"><a href="#版本安装" class="headerlink" title="版本安装"></a>版本安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#查看已经安装的Python版本</span>pyenv versions<span class="token comment" spellcheck="true"># 查看当前的 Python 版本</span>pyenv version<span class="token comment" spellcheck="true"># 查看可安装的版本</span>pyenv <span class="token function">install</span> -l<span class="token comment" spellcheck="true"># 安装与卸载 python 3.x.x</span>pyenv <span class="token function">install</span> 3.x.xpyenv uninstall 3.x.x</code></pre><p>这里如果（大概率）安装的时候比较卡，可以考虑在终端开代理或者使用proxychains</p><pre class=" language-bash"><code class="language-bash">PYTHON_CONFIGURE_OPTS<span class="token operator">=</span><span class="token string">"--disable-ipv6"</span> proxychains4 pyenv <span class="token function">install</span> <span class="token operator">&lt;</span>python版本<span class="token operator">></span></code></pre><h3 id="国内加速安装python环境"><a href="#国内加速安装python环境" class="headerlink" title="国内加速安装python环境"></a>国内加速安装python环境</h3><pre class=" language-bash"><code class="language-bash">v<span class="token operator">=</span>3.8.6<span class="token punctuation">;</span><span class="token function">wget</span> https://npm.taobao.org/mirrors/python/<span class="token variable">$v</span>/Python-<span class="token variable">$v</span>.tar.xz -P ~/.pyenv/cache/<span class="token punctuation">;</span>pyenv <span class="token function">install</span> <span class="token variable">$v</span></code></pre><h3 id="macos-bigsur安装"><a href="#macos-bigsur安装" class="headerlink" title="macos bigsur安装"></a>macos bigsur安装</h3><ol><li>设置 command-line tools<br>打开Xcode.app在Preference &gt; Locations处选择正确版本的command-line tools</li><li>安装python（设置环境变量）<br>直接执行如下命令即可：</li></ol><pre class=" language-bash"><code class="language-bash">pyenv <span class="token function">install</span> --patch 3.7.1 <span class="token operator">&lt;</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>curl -sSL https://github.com/python/cpython/commit/8ea6353.patch<span class="token punctuation">)</span></code></pre><ol start="3"><li>安装python(未设置环境变量)<br>创立一个脚本，注意这里如果不设置脚本直接复制命令执行（zsh）会莫名的报错</li></ol><pre class=" language-bash"><code class="language-bash"><span class="token function">touch</span> install_python.sh<span class="token function">chmod</span> +x install_python.sh</code></pre><p>在脚本里输入以下内容</p><pre class=" language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span><span class="token keyword">set</span> -ex CFLAGS<span class="token operator">=</span><span class="token string">"-I<span class="token variable"><span class="token variable">$(</span>brew --prefix openssl<span class="token variable">)</span></span>/include -I<span class="token variable"><span class="token variable">$(</span>brew --prefix readline<span class="token variable">)</span></span>/include -I<span class="token variable"><span class="token variable">$(</span>xcrun --show-sdk-path<span class="token variable">)</span></span>/usr/include"</span> \LDFLAGS<span class="token operator">=</span><span class="token string">"-L<span class="token variable"><span class="token variable">$(</span>brew --prefix openssl<span class="token variable">)</span></span>/lib -L<span class="token variable"><span class="token variable">$(</span>brew --prefix readline<span class="token variable">)</span></span>/lib -L<span class="token variable"><span class="token variable">$(</span>xcrun --show-sdk-path<span class="token variable">)</span></span>/usr/lib -L/usr/local/opt/zlib/lib"</span> \CPPFLAGS<span class="token operator">=</span><span class="token string">"-I/usr/local/opt/zlib/include"</span> \PKG_CONFIG_PATH<span class="token operator">=</span><span class="token string">"/usr/local/opt/zlib/lib/pkgconfig"</span> \pyenv <span class="token function">install</span> --patch 3.7.1 <span class="token operator">&lt;</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>curl -sSL https://github.com/python/cpython/commit/8ea6353.patch<span class="token punctuation">)</span></code></pre><h3 id="手工加速安装"><a href="#手工加速安装" class="headerlink" title="手工加速安装"></a>手工加速安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>blog_secgxx<span class="token punctuation">]</span> PYTHON_CONFIGURE_OPTS<span class="token operator">=</span><span class="token string">"--disable-ipv6"</span> pyenv <span class="token function">install</span> 3.7.0python-build: use openssl@1.1 from homebrewpython-build: use readline from homebrewDownloading Python-3.7.0.tar.xz<span class="token punctuation">..</span>.-<span class="token operator">></span> https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xzerror: failed to download Python-3.7.0.tar.xzBUILD FAILED <span class="token punctuation">(</span>OS X 11.1 using python-build 20180424<span class="token punctuation">)</span></code></pre><p>可以看到下载包的时候失败了，实际上这个包如果我们通过浏览器下载的话其实会很快，这个时候就需要手工加速一下</p><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 新建cache缓存目录</span>➜ <span class="token function">mkdir</span> ~/.pyenv/cache<span class="token comment" spellcheck="true"># 将下载好的 压缩包 移动到 cache目录下</span>➜ <span class="token function">mv</span> ~/Downloads/Python-3.7.0.tar.xz ~/.pyenv/cache<span class="token comment" spellcheck="true"># 再次安装 就会很快 秒装了</span>➜ pyenv <span class="token function">install</span> 3.7.0Installing Python-3.7.0<span class="token punctuation">..</span>.Installed Python-3.7.0 to /Users/xxx/.pyenv/versions/Python-3.7.0<span class="token comment" spellcheck="true"># 安装完成手动清空cache目录</span>➜ <span class="token function">rm</span> -rf ~/.pyenv/cache/*zsh: sure you want to delete the only <span class="token function">file</span> <span class="token keyword">in</span> /Users/xxx/.pyenv/cache <span class="token punctuation">[</span>yn<span class="token punctuation">]</span>? y<span class="token comment" spellcheck="true"># 查看是否安装成功</span>➜ pyenv versions* system <span class="token punctuation">(</span>set by /Users/xxx/.python-version<span class="token punctuation">)</span>  2.7.18  3.7.0  3.8.6  </code></pre><h3 id="版本切换"><a href="#版本切换" class="headerlink" title="版本切换"></a>版本切换</h3><p>pyenv 的 global、local、shell 的优先级关系是：shell &gt; local &gt; global</p><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># global 全局设置 一般不建议改变全局设置</span>pyenv global <span class="token operator">&lt;</span>python版本<span class="token operator">></span><span class="token comment" spellcheck="true"># shell 会话设置 只影响当前的shell会话</span>pyenv shell <span class="token operator">&lt;</span>python版本<span class="token operator">></span><span class="token comment" spellcheck="true"># 取消 shell 会话的设置</span>pyenv shell --unset<span class="token comment" spellcheck="true"># local 本地设置 只影响所在文件夹</span>pyenv local <span class="token operator">&lt;</span>python版本<span class="token operator">></span></code></pre>]]></content>
       
@@ -473,9 +498,9 @@
       
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> macOS </tag>
+            
+            <tag> Python </tag>
             
         </tags>
       
@@ -513,6 +538,35 @@
     
     
     <entry>
+      <title>macOS下多版本JDK管理</title>
+      <link href="java/macmultiversion/"/>
+      <url>java/macmultiversion/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>这里一般用Oracle JDK ，OpenJDK没有用过所以就不做介绍了，后续如果用到了会水一篇新的文章</p></blockquote><h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p>Oracle JDK的安装的话一般分为<a href="https://www.oracle.com/java/technologies/javase-downloads.html">官方下载</a>和通过<code>homebrew</code>进行安装</p><p>官方链接目前提供8、11、16三个版本的下载。想下载6的话需要去<a href="https://www.oracle.com/java/technologies/javase-java-archive-javase6-downloads.html">另一个链接</a>下载</p><p>使用<code>homebrew</code>进行安装的话分为以下两种情况（brew会安装openjdk）：</p><ul><li>安装最新版的JDK<pre class=" language-bash"><code class="language-bash">brew cask <span class="token function">install</span> java</code></pre></li><li>安装指定版本的JDK<pre class=" language-bash"><code class="language-bash">brew tap homebrew/cask-versionsbrew search javabrew <span class="token function">install</span> java*</code></pre>然后根据搜索的结果进行安装<h2 id="查看JDK安装路径"><a href="#查看JDK安装路径" class="headerlink" title="查看JDK安装路径"></a>查看JDK安装路径</h2><pre class=" language-bash"><code class="language-bash">/usr/libexec/java_home -V</code></pre><img src="https://cdn.jsdelivr.net/gh/AMG4MATIC/PicGo/img/20210507090926.png" alt="20210507090926"><br>如图，这里安装了java8和java16</li></ul><h2 id="多版本JDK管理-jEnv"><a href="#多版本JDK管理-jEnv" class="headerlink" title="多版本JDK管理-jEnv"></a>多版本JDK管理-jEnv</h2><blockquote><p>jEnv的官网介绍说:”jEnv is a command line tool to help you forget how to set the JAVA_HOME environment variable” 一个帮助你忘却配置环境变量的工具</p></blockquote><h3 id="下载jEnv"><a href="#下载jEnv" class="headerlink" title="下载jEnv"></a>下载jEnv</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#git</span><span class="token function">git</span> clone https://github.com/jenv/jenv.git ~/.jenv<span class="token comment" spellcheck="true">#homebrew</span>brew <span class="token function">install</span> jenv</code></pre><h3 id="安装jEnv"><a href="#安装jEnv" class="headerlink" title="安装jEnv"></a>安装jEnv</h3><pre class=" language-bash"><code class="language-bash"><span class="token keyword">echo</span> <span class="token string">'export PATH="<span class="token variable">$HOME</span>/.jenv/bin:<span class="token variable">$PATH</span>"'</span> <span class="token operator">>></span> ~/.zshrc<span class="token keyword">echo</span> <span class="token string">'eval "<span class="token variable"><span class="token variable">$(</span>jenv init -<span class="token variable">)</span></span>"'</span> <span class="token operator">>></span> ~/.zshrc</code></pre><h3 id="配置jEnv"><a href="#配置jEnv" class="headerlink" title="配置jEnv"></a>配置jEnv</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">source</span> ~/.zshrc/usr/libexec/java_home -Vjenv add java_home</code></pre><p><img src="https://cdn.jsdelivr.net/gh/AMG4MATIC/PicGo/img/20210507101244.png" alt="20210507101244"></p><h3 id="使用jEnv"><a href="#使用jEnv" class="headerlink" title="使用jEnv"></a>使用jEnv</h3><p>jEnv常用的有三个参数global、local、shell<br>这里推荐用local按照目录进行管理，使用了local命令以后会在目录下生成一个<code>.java-version</code>的文件，只要不删除该文件，当前目录会使用采用文件配置的java版本<br>List managed JDKs</p><pre class=" language-bash"><code class="language-bash">$ jenv versions  system  oracle64-1.6.0.39* oracle64-1.7.0.11 <span class="token punctuation">(</span>set by /Users/hikage/.jenv/version<span class="token punctuation">)</span></code></pre><p>Configure global version</p><pre class=" language-bash"><code class="language-bash">$ jenv global oracle64-1.6.0.39</code></pre><p>Configure local version (per directory)</p><pre class=" language-bash"><code class="language-bash">$ jenv local oracle64-1.6.0.39</code></pre><p>Configure shell instance version</p><pre class=" language-bash"><code class="language-bash">$ jenv shell oracle64-1.6.0.39</code></pre><hr><p>参考链接：</p><ol><li>MacOS 下安装多个版本的 JDK 并统一管理:<a href="https://segmentfault.com/a/1190000020083040">https://segmentfault.com/a/1190000020083040</a></li><li>jEnv: <a href="https://www.jenv.be/">https://www.jenv.be/</a></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> 多版本 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ctfhub-技能树</title>
       <link href="ctf/practice/ctfhub-skilltree/"/>
       <url>ctf/practice/ctfhub-skilltree/</url>
@@ -541,8 +595,8 @@
     
     <entry>
       <title>VMware和谐</title>
-      <link href="sofware/vmwarecracked/"/>
-      <url>sofware/vmwarecracked/</url>
+      <link href="sofware/vmware/"/>
+      <url>sofware/vmware/</url>
       
         <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="32b470bafda90280b374cd03568b66b28953c2b6da6006170621dcebd9726796">07f94501e737b22c9f19bf6c98896d02592366d7acdb95a2c26cb9c042f8247b3a82ba0bcffab179add23b698582f5f094e9ab858a1f46514e2f667254aced17b36f99026bd46bfd933483488406da73802286c2d918e5b9b558773ae18f4f7a5c98416f28ab859ee090f8102a3170582a75f1ca0bf5a33ea501793241d1029d90709ecff02097a0ef131e92a0c1f618846c341ea57b858d70dab3a1ba10ec122c3f4ddc5c2317166f077c09b316af2ebc0b0448f11da67aadcb37106921fbee8b26e2a06232c90a80f0376f38efbb369f4dcaab9e1a4c8bd2f7c0dc27f9380f9f0d65fdb57e1aa05a1ce288ca3e6686032f29b13c01e8fd24d2782f589078f408ea37834713183d8cd6761905fde1763fdfeab6ef6be41a1ddde1420436a0bd1b4d0fc33822680df3c0f2235a436e7fa25088c386f964338686cfabfa70f70849af7a702746b9db6e8584a94526ed831437bfddd36581868d6525ab981714353da7b0b13ada8080c24888c1856b3d68141dc4166cb009d9f7b77a5092f3869f9e5668f91037cd0185cfb6a8989047f07d692da2390ff0ce5705f46a2f6ffd24dd0622f7beb8d7ea81bc2a0ef24e4befc519b88292cac91f7932f4606d887e1589264aad2eec6c42eae9e74c53bfbbfd7c1be0128dd68d75bb3e4c79632bd6f603f4a31c23235008bb33c1b928583e59ef2d053616c835adbd050abd738186446b133a69df8bbd45fc4b5f963dc8e724341cd4891b6980b8ed60b887ba8592dd3b40fdbfac19ce634ed6787bce67deb4615ee0dcfd393c0e793283be43a810ed9af8e0e4644131ba489950e6f3c691917ad15cc3f84fc585e762c303367b6a11c1c2a7212df3b53a8efe81efab928e5369bd5c8707c1ae4aa8f06c99f65e91482675ad81c22a4f44d865b078bd3f6419cd68e5087d0452490402d0c4298d49cac0a914ffd2baacbd7ebf347212740e5ea65f802fb96afc39c533960ac2cb2b516ce79329edc3b5d4b5c2ba2db19dde6d1a2db9874ff0f43ae844db5dbdae2433a4df55e07754117646dcd62aad7b7920f47ce558b4157576cfda4de4700657a9ceb2459f0b9c74a9539ca68fbb451283f1c79d649690b1c2053581a256b7e5279abd23389e516724e52ca97a5e4440b211dcb670fca6384bc54125288f5e261581be3bb760a78b9f218275bb2a5859fac23a6862b1685c13e0144081997e37d9ecafe57f2901ccc846c66b4f270783e57040b7596c1dbc9142d44f863ed7be5e491e94853cc90aaa83929b32e2be8f1cf8d500661e3bc6c5bf21f556bef080473d59e900e4d989fe6f851c0479b5e746f5452dc1f4cf20195732cb6b407a4b91b376ecadf2ca57df8fc4dda4ce263e75b3ba4d7d8366dd10bf59d3d31452e0cb0a422d26e9dbd62be6eb9f1faacc6654423817601a5e769e465dd02efd6bfdbce7563f90b400e585874f7e81d89eaf6dd06a06d341669eb26a4cfd5bc5c0310a4ed278bdb92c8dc37e6311487749b21842373781e788a60190740fbacfb6945388e63be7b278135da418098b8f889b16fb08c48c12d924ab52f91f4d132bc1780b40df76110dfdfa4a15e488533de93abc7bccee6177b8608f7be4dfed201d50d0c520eb4c2c0bfd2d67e16e6ec3f31f3f03c6ac6e6858b3ca2d561d8a64285af04f5fe7aa0df4488cf5e68e71b04be235922f7489b55bba2f626c082c55789bd29184e68a8025ae03864abd123d4a6dd1a6a34b4ac7e1b49fb1c2789e36f69f9ec7e736118e0c8098d165092a8ec87042dd9969f9626d0de23689e73f124c18dd9d9d9267548dba30546e2318ec62a974d91ebcd8ae5f2d9b23b655bc739d8d36ed29f9644ba66b3b97bcd9f59c17b0ea8aac6322ea500f0eb2c78a45e0765c1f21bc19682dd4db0470c38940f2a4c6261360fce66591ec756107cdf154bd6ec622fe60d643946154c246aacd41c4585b20157112cfa6096411731eb1ab4ff8d23cf65401e446d4e13549fcfd05afaddcb384fe45e51aae0388c17edd7b11c258e103785d4c5a3f7583168bce8205331350472d27c205f6fd1531d2262710abdb140768789ee70ea3a2f65df057875b4c5f3bd4f4e4de4eed1c02fe1d0af0b28612808b25877e087483892907164be072a9452cb9afb3ee1d006a3000e27d23f993a9f5ba4548a05b73d044d8bb609198bde3f922c6193eac5cb2bfb87122fc480201f9d37131f0a0191e9ed2edc3f6b7e40b3c6328781273038a7998e9cb507fa616fbdc95d042e3234f64013252f4b35d58bfd58c305f2b046a60cd0ad8bbc3d50c15df893c89b31b2ede451057692e3b2e8998607c5d49ab5ac1d3f1e7a0465e147d97a62211debf2ec5da6002f13ac00e7a9dec1c170b1b0e9012a4c7e8c9193c995397dc7d36fb128d22ccc9068fa4729792ff7fcdb0f9eb590178b33dbec837c6247164ba7b887c2b89d0fb9765342ad64083dc3452d8a75e7e167bd51d2c09579a26bbb07573741b6eca2978248d9c0a1e8716506ba577fc8fa2bd8f180f861c20bf0c203bab57cf0241b87e7b9f69c0eaec78749dc0b7b7f88aa33c5af5b9f972c90bfedb816f5bc62343926916e57603b938f38b8c8274ee12ac28b5709331c8cff3f91087235f7bd81ca4ba5528e22e9e5aabac60ad1f638a15c76e6ac2ff12b619dda00737050b9a811dbc02327b60d52cb673087d1ad0016988db29f19fe06ff0c20f104b7928466b7756147775282efd778dcdb329507f96188d15b745577aaeac07f3ae280e0b85d5b83f29d5feef238db560f37db5a4e8ce5d8d559077655eef067da2a9a3f10965379744649c4ada69ae1f13b8776d1d3035540cfc1fa1945be0a1c3e6b4d45799a6f6eb5c3188aef63d75ec7490cdbfbf97ec1712346d7feefcdc2f916f3fa67dc5b72ef97b6d8a949c9b36f5357bb9f8d17d636e0e50492b2093537ae9a85e263d35d1c8bf92ff53ef40397d5561b703f51f68c7b07d0f8b6cc6ee33f90d07802f0a46e8db85c7919ac12f22912fb9b6ddd4ce2f5e8e1779b2393eab67c224cd53bfd989b15b049e369a45f56ac0dffffc561ae0bcb81c5b3d7f6ffb864d933dc596dab6c865ad48dbcb42e7b3a415b49afe9f21aaf1cd2a03195f99b442fa6b70f76e47247250cba43d875f84decf19ec81513f022019397f0fc93713d8c4fc25ef8a958d8530fa577fa5575e580d0b5c6bd1b91bb1d3df62f7a47349b01488f9d8569b3b4e6058763ca6df4c35bd227f3dae1013e438d9fb4e64afdde9a736b02bc0f68a0a847bcc3a994ea8f5c703</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-shrink">      <input class="hbe hbe-input-field hbe-input-field-shrink" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-shrink" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-shrink">您好，请在这里输入密码哦，密码获取方式请见首页</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       
@@ -556,9 +610,9 @@
       
         <tags>
             
-            <tag> 和谐 </tag>
-            
             <tag> Software </tag>
+            
+            <tag> 和谐 </tag>
             
         </tags>
       
@@ -568,8 +622,8 @@
     
     <entry>
       <title>Sublime Text3和谐</title>
-      <link href="sofware/sublimetextcracked/"/>
-      <url>sofware/sublimetextcracked/</url>
+      <link href="sofware/sublimetext/"/>
+      <url>sofware/sublimetext/</url>
       
         <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="ad2ba5d10887c6b82add88a456128dedfd373ca5656bf4e79f77b616793ade14">46e0ce6797294e0b19265e3054eb832cc7fbbcee0461e98ff1a3e2048cf2b6012591e93f6219da0f0f69b720bf980fc2ed096bc64446cfbeec65a0960050a6fd17cfbc684abb2e25eeb2d154f2f4e76cbdbc17c8a459ec23dbee842ff77b88848bdfa1b1c1b96064b4846713e0a8cdb9728780ec4907ca56d6179877ce7cdc788a60177d3047ff31d82c967d9a60f2320da54db099d1395fffb18417788923ac1fd9bf4b545d28a96553e2354185b56b6045af329855bb439a54c9226dd7ae6176b6c816aae7a82f26b4851d1eb7250f4fefe6fd3cc53eaf64b915f1a17d8b6f9f886897cdf88e30b520763aad401ad65b806c744527a3a7b5a3c0d5a56c2266040f145542e4a02667624925d346ab23bac178d2933155e49b01cd8d50e33c6f2bea975b35c32e90898c40e266920af0c0f5440363e281d5b1d262d8f13db56f9cf5e791d05daa10c0cbdef2ff4cb0ae8308014485b8005779f2be8f41812f3f38610926c0f50337edf3c20163a599e2e007648e2b7c299c6363d1e2264688facacb3f8e77a6dc93bb1384ed25ee99dfceff62ec7a7036607d1cf8cc65be5b12d259598cc38270ace50b0cfae43dd1222ed5aa8b6952f80dfb2a404d29db126f33e93f92e515fd58e20edb4e9f84daa234b5563f3af9fb7cfc6b4a9888514f791b207be3d8f5932c71e756708548ef0d0bd78899fac79254428d6d70c36c15fd91172894700fcc1c53df4bea1483487f82e54a4832d2943f632fe32a1d83816650fd58d1e78fd2c3625218868dd0846866adf0d7554df37256843dd2f43588ed72b88ee724f9831bcefaa872ba81595c5134b50ea31e70b9457cb5693d5eb5d1f6b7497916b9149210dd7ad5c63f1700b86f6acf333fa4cb8b7537c8bbe2e19b9f59d907df2a9fbaf4f8431fb416b76ae0983f91f997ab4b34c88003203b3db907e588f6e5802596fb43b045478639825ce0750e83090a3f820e7f7ac24a7b78819f3f5ff28b0d4a2ac716852410ed79f12c181f7dbba898d44b204cdece674c3b1504f9c49ca90110a409fa5133cd33d74a1346fc589a548351b789041d01a58b7b1c80e0294fa3271939afd0ab4652afcfcaa83cfc3c99baacd70caebf5ad3fa4fa035f97019c72111f5aff6b724345c294ed5815a857a1d0bc02bf049e5d3a52081cdd1638fbc367fae9d8cc55a0fd7d463b4da6fe32d2a66093b2d0d7dafc74a9866c03fcf83cc72abc04c8a7dbdaf7cd768ed49f16351fe6267c2d1bbd92953ad0cd18edc17b1491f65e6c4df6631db1546c83c22db2fd015ed1aba9900b2b265290f27b89a9f7861e55bc20967c2e4f37de7886d49169f92cfeb832e3078f07de03e073955706a5e1503c5f8dc1a69fd6c87726cf66d6f56ed18bd2d25573045da9ba7c5ecf1092f59522533a337217fa1261b9af805993bdbf0adeb74e77a7a89176a1134dafa048121a62f6b65fcc09ef9afe33367a7626c77fce1681676db2972cd115d75c59e6974504d173d7ca4c0c7cac6aa5852000656faa0d490a46f99706b315dd603694bd2efc3a063f9b23173826d40570644c8dc153cd6fd407ce846e78e7103e4665857b58c1d3b4f3d3bac009ca8e7e1c994ca4abb97697b3d1f2857fd5138e5965b6e1a3d31ec542b721f7221260e06639da0040e0d3c9aec52ed87daf35ba11d089d2f33b632b6abde14036e572f5bbcc14049b394676a1cd4577e0e3009e65b4fe8a48769bdd822e223189fa8787e0c8b4b41538d2b726b7e64ea1e8bf6f2fb7903fe49f8b578619bde7793263890529164605f2ed69a2103d4a9eeea4a27720a1354caeedc4fb35ce7018baf5fed590552b8f86dc44357f41568e5b9e2fa5dd387163c5b49501efb6978df99989ee9660311ba4e38e9c533aa193da846756451baaae1d99b5322f6c602daa4605a231aedd65556bd0bcfc17743576cd7ba6c3fe20090d62dad4239fcf20ccb91825f7dbc7ffe4f715acbf8b9462c9593e225db5f1226cdb263e2f7283592edd67751fd017e86361c470fb7c0e9365ef2a7493bb301e436fe2853dab280f22113e0574eabff6f9234083d151a3fc8cf6797c2a828f3439ce63bfd7bcbe57aee66fb45c1812e1c813bde48307e656b4cc2365a801a698ef7f66386fe845601ca546b204ef1b06734175b332e1b96a40c3a10add30687074c5105c637deb542f1a17621dbd5b305755887e7b6c14435d420419951c043ea732f5375c7106e6a706c43b070b7ee6303e31784885b6c40b127b2feafdbb9b053a897ff4cd99e2c4fbff0dd37b7bf000b8ca38aeef66d7aa28f1bb2542596e3e50dba6a38fb5fcb3bf36bf3692d754eab259c098591499a67b0ff377722bdccb4e2aab77d02f7803fa6162e2b935ae2879951a72251bb94ee46e1735bb71b0299ef755bf0d9f9c8e802ced82bd338f846b370e0ef6953e70ebb30e4fed8b342f41773711fbafe203a3aa1f8703859a01e10c54cdc37609d2d1fd30a76143f48bb36e09de179e28cb439d8a2c9b75f99382da3c86520ea7ca2ddc9315e102b31aa30cdea70b816b4320d01868c13d574eb5e39c3c97afcf4d6a3b6decefcc7fd4cb0d099f45e6a62157f2ae2b166258dec4bf0bb446f96c1a7e68a794c11c5a46a2a2628bf17bf3d64a3e8dd61af328f4c0c60cf98746ff76d7c656df7c0c51e8dd8bb3f7db5df46d7d08267b681ad785edaf8c3863dd664a1db731086db65e29357e4fad22ae72e57d019504d42f41d130e192332c6df6bed3c397a63f88f2db40704e18b3bd3fcb3e6b67ee333d7e018620d5db74db08bb3c1847477c86a365d6d5f55d1a734e0cc77e9d83da46059cc081f96caf7e88e80b41f299cd52c00ea7d45004d3e031323c474bd80fe552f08c3815d0024b400be82d64eff7da36de65cdc55f5869ea0c9fdc3bf3ffc038f5824826b63a18f76c33f9dad2c6395b23950d3f9753fbeb2d51ac75a381476ebfb7b86039353e0f3cc2dd0cda787a82cf2ca64da2720df78b437f09fd220ecdc93f77f132041dcb1d98025acc27eb0739969aae44dc388c15e1b518787c03d5c41cedae6df2e39286333045be7bb415c2929e9d1384bd3687803584de4e2b33c13</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-shrink">      <input class="hbe hbe-input-field hbe-input-field-shrink" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-shrink" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-shrink">您好，请在这里输入密码哦，密码获取方式请见首页</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       
@@ -583,9 +637,9 @@
       
         <tags>
             
-            <tag> 和谐 </tag>
-            
             <tag> Software </tag>
+            
+            <tag> 和谐 </tag>
             
         </tags>
       
